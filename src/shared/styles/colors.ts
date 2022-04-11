@@ -1,0 +1,4 @@
+const BRANCO = '#FFFFFF'
+const VERDEAGUA = '#72B5A4'
+
+export { BRANCO, VERDEAGUA }

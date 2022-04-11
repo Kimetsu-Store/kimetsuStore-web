@@ -1,21 +1,39 @@
-import { Provider } from 'react-redux'
-import '../styles/globals.css'
+import { ThemeProvider } from '@mui/material'
+import CssBaseLine from '@mui/material/CssBaseline'
+import theme from '../shared/styles/temaconfig'
+import { PersistGate } from 'redux-persist/integration/react'
+import { storeWrapper, _Store } from '../store'
+import { useStore } from 'react-redux'
+import GlobalStyle from '../shared/styles/global'
+import Head from 'next/head'
 
 function MyApp({ Component, pageProps }) {
+  const store = useStore() as _Store
   return (
     <>
-      <Header>{/* // */}</Header>
+      <Head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+
+        <title>Kimetsu Store</title>
+
+        <link rel="icon" href="/favicon.ico" />
+
+        <link rel="preconnect" href="https://fonts.gstatic.com/" />
+      </Head>
 
       <ThemeProvider theme={theme}>
         <CssBaseLine />
         <GlobalStyle />
 
-        <Provider store={store}>
+        <PersistGate persistor={store._persistor} loading={null}>
           <Component {...pageProps} />
-        </Provider>
+        </PersistGate>
       </ThemeProvider>
     </>
   )
 }
 
-export default MyApp
+export default storeWrapper.withRedux(MyApp)

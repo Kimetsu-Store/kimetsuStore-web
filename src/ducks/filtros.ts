@@ -5,6 +5,9 @@ export interface Types {
   OBTER_CATEGORIAS: string
   OBTER_CATEGORIAS_SUCESSO: string
   OBTER_CATEGORIAS_ERRO: string
+  TESTE: string
+  TESTE_SUCESSO: string
+  TESTE_ERRO: string
 }
 
 export interface FiltrosState {
@@ -27,7 +30,10 @@ const initialState: FiltrosState = {
 const FiltrosTypes: Types = {
   OBTER_CATEGORIAS: 'filtros/OBTER_CATEGORIAS',
   OBTER_CATEGORIAS_SUCESSO: 'filtros/OBTER_CATEGORIAS_SUCESSO',
-  OBTER_CATEGORIAS_ERRO: 'filtros/OBTER_CATEGORIAS_ERRO'
+  OBTER_CATEGORIAS_ERRO: 'filtros/OBTER_CATEGORIAS_ERRO',
+  TESTE: 'filtros/TESTE',
+  TESTE_SUCESSO: 'filtros/TESTE_SUCESSO',
+  TESTE_ERRO: 'filtros/TESTE_ERRO'
 }
 
 export default function reducer(
@@ -37,6 +43,7 @@ export default function reducer(
   switch (action.type) {
     case HYDRATE:
     case FiltrosTypes.OBTER_CATEGORIAS:
+    case FiltrosTypes.TESTE:
       return {
         ...state,
         ...action.payload,
@@ -55,6 +62,12 @@ export default function reducer(
         ...state,
         mensagemErro: action?.payload?.mensagemErro,
         loadingFiltros: false
+      }
+
+    case FiltrosTypes.TESTE_ERRO:
+      return {
+        ...state,
+        mensagemErro: action?.payload?.mensagemErro
       }
   }
 }
@@ -81,5 +94,14 @@ export function obterCategorias() {
         payload: { mensagemErro: error.response?.data?.mensagem }
       })
     }
+  }
+}
+
+export function teste() {
+  return async (dispatch: (action: FiltrosAction) => void): Promise<void> => {
+    dispatch({
+      type: FiltrosTypes.TESTE_ERRO,
+      payload: { mensagemErro: 'TESTEEEEE' }
+    })
   }
 }

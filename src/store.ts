@@ -3,9 +3,10 @@ import thunkMiddleware from 'redux-thunk'
 import { createWrapper } from 'next-redux-wrapper'
 import { Persistor, persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { FiltrosState, filtrosReducer } from './ducks'
 
 export interface RootState {
-  //	filtros: FiltrosState
+  filtros: FiltrosState
 }
 
 // initial states here
@@ -21,7 +22,7 @@ const persistReducerRootConfigs = {
 
 const obterReducerRoot = () => {
   return combineReducers<RootState>({
-    //filtros: filtrosReducer
+    filtros: filtrosReducer
   })
 }
 
