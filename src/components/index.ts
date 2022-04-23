@@ -1,1 +1,5 @@
-//arquivo para exportar todos os componentes usados em muitas telas
+export { Header } from './Header'
+export { MenuOpcoes } from './MenuOpcoes'
+export { HeaderMobileBox } from './HeaderMobileBox'
+export { SearchBar } from './SearchBar'
+export { GeneralContainer } from './GeneralContainer'

@@ -6,7 +6,9 @@ import { BRANCO } from './colors'
 const useStyles = makeStyles(theme => ({
   '@global': {
     html: {
-      height: '100%'
+      height: '100%',
+      width: '100%',
+      boxSizing: 'border-box'
     },
     body: {
       background: BRANCO,

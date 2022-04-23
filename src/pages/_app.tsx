@@ -1,11 +1,11 @@
-import { ThemeProvider } from '@mui/material'
-import CssBaseLine from '@mui/material/CssBaseline'
+import CssBaseLine from '@material-ui/core/CssBaseline'
 import theme from '../shared/styles/temaconfig'
 import { PersistGate } from 'redux-persist/integration/react'
 import { storeWrapper, _Store } from '../store'
 import { useStore } from 'react-redux'
 import GlobalStyle from '../shared/styles/global'
 import Head from 'next/head'
+import { ThemeProvider } from '@material-ui/core'
 
 function MyApp({ Component, pageProps }) {
   const store = useStore() as _Store
@@ -20,8 +20,6 @@ function MyApp({ Component, pageProps }) {
         <title>Kimetsu Store</title>
 
         <link rel="icon" href="/favicon.ico" />
-
-        <link rel="preconnect" href="https://fonts.gstatic.com/" />
       </Head>
 
       <ThemeProvider theme={theme}>

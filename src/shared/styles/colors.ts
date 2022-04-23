@@ -1,4 +1,5 @@
 const BRANCO = '#FFFFFF'
 const VERDEAGUA = '#72B5A4'
+const CINZA1 = '#595757'
 
-export { BRANCO, VERDEAGUA }
+export { BRANCO, VERDEAGUA, CINZA1 }
