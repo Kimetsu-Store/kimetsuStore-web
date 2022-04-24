@@ -1,6 +1,7 @@
 import { Grid } from '@material-ui/core'
 import { FC } from 'react'
 import LivroSimplificado from '../../../models/Livro/livroSimplificado'
+import { GeneralContainer } from '../../GeneralContainer'
 import Secao from './Secao'
 import { secoesUseStyles } from './Secoes.styles'
 
@@ -25,13 +26,15 @@ const livrosSecaoMock: LivroSimplificado[] = [
 const Secoes: FC = () => {
   const classes = secoesUseStyles()
   return (
-    <Grid container className={classes.secoesContainer}>
-      <Secao titulo="Mobile" livros={livrosSecaoMock} />
+    <GeneralContainer>
+      <Grid container className={classes.secoesContainer}>
+        <Secao titulo="Mobile" livros={livrosSecaoMock} />
 
-      <Secao titulo="FrontEnd" livros={livrosSecaoMock} />
+        <Secao titulo="FrontEnd" livros={livrosSecaoMock} />
 
-      <Secao titulo="BackEnd" livros={livrosSecaoMock} />
-    </Grid>
+        <Secao titulo="BackEnd" livros={livrosSecaoMock} />
+      </Grid>
+    </GeneralContainer>
   )
 }
 
