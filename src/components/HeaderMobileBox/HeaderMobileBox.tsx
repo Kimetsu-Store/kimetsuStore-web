@@ -74,12 +74,6 @@ const HeaderMobileBox: FC<Props> = props => {
         titulo="Categorias"
         itens={categorias}
       />
-      <BotaoOpcoes
-        boxAberto={boxAberto}
-        handleClickItem={handleClickAutor}
-        titulo="Autores"
-        itens={autores}
-      />
     </Grid>
   )
 }

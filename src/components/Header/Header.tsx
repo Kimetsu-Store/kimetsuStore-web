@@ -44,12 +44,6 @@ const Header: FC = () => {
               handleClickItem={handleClickCategoria}
             />
 
-            <MenuOpcoes
-              titulo="Autores"
-              itensMenu={itensMenuAutoresMock}
-              handleClickItem={handleClickAutor}
-            />
-
             <SearchBar />
 
             <Badge badgeContent={4} color="primary">

@@ -9,17 +9,17 @@ const livrosSecaoMock: LivroSimplificado[] = [
   {
     id: 1,
     nome: 'Livro teste1',
-    imagem: 'https://static-cse.canva.com/blob/759754/IMAGE1.jpg'
+    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
   },
   {
     id: 2,
     nome: 'Livro teste2',
-    imagem: 'https://static-cse.canva.com/blob/759754/IMAGE1.jpg'
+    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
   },
   {
     id: 3,
     nome: 'Livro teste3',
-    imagem: 'https://static-cse.canva.com/blob/759754/IMAGE1.jpg'
+    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
   }
 ]
 
