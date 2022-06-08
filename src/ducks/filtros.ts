@@ -69,6 +69,9 @@ export default function reducer(
         ...state,
         mensagemErro: action?.payload?.mensagemErro
       }
+
+    default:
+      return state
   }
 }
 
