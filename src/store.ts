@@ -16,7 +16,6 @@ export interface _Store extends Store {
 
 const persistReducerRootConfigs = {
   key: 'root',
-  whitelist: ['filtros'],
   storage
 }
 
@@ -29,7 +28,7 @@ const obterReducerRoot = () => {
 const makeStore = () => {
   const reducerPersistido = persistReducer(
     persistReducerRootConfigs,
-    obterReducerRoot
+    obterReducerRoot()
   )
 
   const store = createStore(
