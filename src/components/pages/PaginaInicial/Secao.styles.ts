@@ -31,7 +31,8 @@ export const secaoUseStyles = makeStyles(() => ({
   },
   livroContainer: {
     flexDirection: 'column',
-    width: 'fit-content'
+    width: 'fit-content',
+    cursor: 'pointer'
   },
   imagemContainer: {
     width: 200,

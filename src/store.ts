@@ -3,25 +3,32 @@ import thunkMiddleware from 'redux-thunk'
 import { createWrapper } from 'next-redux-wrapper'
 import { Persistor, persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { FiltrosState, filtrosReducer } from './ducks'
+import {
+  FiltrosState,
+  filtrosReducer,
+  LivrosState,
+  livrosReducer
+} from './ducks'
 
 export interface RootState {
   filtros: FiltrosState
+  livros: LivrosState
 }
 
-// initial states here
 export interface _Store extends Store {
   _persistor: Persistor
 }
 
 const persistReducerRootConfigs = {
   key: 'root',
+  whitelist: [],
   storage
 }
 
 const obterReducerRoot = () => {
   return combineReducers<RootState>({
-    filtros: filtrosReducer
+    filtros: filtrosReducer,
+    livros: livrosReducer
   })
 }
 
