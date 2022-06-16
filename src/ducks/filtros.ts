@@ -1,15 +1,14 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { Categoria } from '../models/Categoria'
 
-export interface Types {
-  OBTER_CATEGORIAS: string
-  OBTER_CATEGORIAS_SUCESSO: string
-  OBTER_CATEGORIAS_ERRO: string
-  TESTE: string
-  TESTE_SUCESSO: string
-  TESTE_ERRO: string
+const FiltrosTypes = {
+  OBTER_CATEGORIAS: 'filtros/OBTER_CATEGORIAS',
+  OBTER_CATEGORIAS_SUCESSO: 'filtros/OBTER_CATEGORIAS_SUCESSO',
+  OBTER_CATEGORIAS_ERRO: 'filtros/OBTER_CATEGORIAS_ERRO',
+  TESTE: 'filtros/TESTE',
+  TESTE_SUCESSO: 'filtros/TESTE_SUCESSO',
+  TESTE_ERRO: 'filtros/TESTE_ERRO'
 }
-
 export interface FiltrosState {
   categorias?: Categoria[]
   loadingFiltros?: boolean
@@ -25,15 +24,6 @@ const initialState: FiltrosState = {
   categorias: [],
   loadingFiltros: true,
   mensagemErro: ''
-}
-
-const FiltrosTypes: Types = {
-  OBTER_CATEGORIAS: 'filtros/OBTER_CATEGORIAS',
-  OBTER_CATEGORIAS_SUCESSO: 'filtros/OBTER_CATEGORIAS_SUCESSO',
-  OBTER_CATEGORIAS_ERRO: 'filtros/OBTER_CATEGORIAS_ERRO',
-  TESTE: 'filtros/TESTE',
-  TESTE_SUCESSO: 'filtros/TESTE_SUCESSO',
-  TESTE_ERRO: 'filtros/TESTE_ERRO'
 }
 
 export default function reducer(

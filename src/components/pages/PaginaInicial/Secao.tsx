@@ -1,5 +1,7 @@
 import { Grid, Typography } from '@material-ui/core'
 import { FC } from 'react'
+import { useDispatch } from 'react-redux'
+import { abrirModal } from '../../../ducks/livros'
 import LivroSimplificado from '../../../models/Livro/livroSimplificado'
 import { secaoUseStyles } from './Secao.styles'
 
@@ -10,9 +12,10 @@ interface Props {
 
 const Secao: FC<Props> = props => {
   const { titulo, livros } = props
+  const dispatch = useDispatch()
 
   const handleClickLivro = idLivro => {
-    console.log('não implementado')
+    dispatch(abrirModal(idLivro))
   }
 
   const classes = secaoUseStyles()
