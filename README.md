@@ -1,6 +1,8 @@
 # kimetsu-store-web
-##CI Desenvolvimento: [![Desenvolvimento CI](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/desenvolvimento.yml/badge.svg)](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/desenvolvimento.yml)
-##CI main: [![Main](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/main.yml/badge.svg)](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/main.yml)
+## CI: 
+### Main: [![Main](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/main.yml/badge.svg)](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/main.yml) 
+### Desenvolvimento: [![Desenvolvimento CI](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/desenvolvimento.yml/badge.svg)](https://github.com/Kimetsu-Store/kimetsuStore-web/actions/workflows/desenvolvimento.yml)
+
 ## Getting Started
 
 ###node.js
