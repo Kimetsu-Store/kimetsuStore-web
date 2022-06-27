@@ -1,24 +1,18 @@
 import { Button, Grid, Typography } from '@material-ui/core'
 import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import { FC, useState } from 'react'
+import { ItemMenu } from '../MenuOpcoes/MenuOpcoes'
 import { headerMobileBoxUseStyles } from './HeaderMobileBox.styles'
 
-class ItemMenu {
-  titulo: string
-}
 interface PropsOpcoes {
   boxAberto: boolean
   titulo: string
   itens: ItemMenu[]
-  handleClickItem: (autor) => void
+  handleClickItem: (itemId: number) => void
 }
 
 const BotaoOpcoes: FC<PropsOpcoes> = props => {
   const { itens, titulo, handleClickItem, boxAberto } = props
-
-  const handleClickMenuItem = itemTitulo => {
-    handleClickItem(itemTitulo)
-  }
 
   const classes = headerMobileBoxUseStyles({ aberto: boxAberto })
   return (
@@ -35,10 +29,10 @@ const BotaoOpcoes: FC<PropsOpcoes> = props => {
                 key={index}
                 item
                 container
-                onClick={() => handleClickMenuItem(item.titulo)}
+                onClick={() => handleClickItem(item.id)}
                 className={classes.opcao}
               >
-                {item.titulo}
+                {item.nome}
               </Grid>
             ))}
           </Grid>
@@ -50,20 +44,12 @@ const BotaoOpcoes: FC<PropsOpcoes> = props => {
 
 interface Props {
   boxAberto: boolean
-  autores: ItemMenu[]
   categorias: ItemMenu[]
-  handleClickCategoria: (categoria) => void
-  handleClickAutor: (autor) => void
+  handleClickCategoria: (itemId: number) => void
 }
 
 const HeaderMobileBox: FC<Props> = props => {
-  const {
-    autores,
-    categorias,
-    handleClickCategoria,
-    handleClickAutor,
-    boxAberto
-  } = props
+  const { categorias, handleClickCategoria, boxAberto } = props
 
   const classes = headerMobileBoxUseStyles({ aberto: boxAberto })
   return (

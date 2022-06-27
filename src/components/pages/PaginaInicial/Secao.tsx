@@ -2,20 +2,20 @@ import { Grid, Typography } from '@material-ui/core'
 import { FC } from 'react'
 import { useDispatch } from 'react-redux'
 import { abrirModal } from '../../../ducks/livros'
-import LivroSimplificado from '../../../models/Livro/livroSimplificado'
+import LivroDetalhado from '../../../models/Livro/livroDetalhado'
 import { secaoUseStyles } from './Secao.styles'
 
 interface Props {
   titulo: string
-  livros: LivroSimplificado[]
+  livros: LivroDetalhado[]
 }
 
 const Secao: FC<Props> = props => {
   const { titulo, livros } = props
   const dispatch = useDispatch()
 
-  const handleClickLivro = idLivro => {
-    dispatch(abrirModal(idLivro))
+  const handleClickLivro = (livro: LivroDetalhado) => {
+    dispatch(abrirModal(livro))
   }
 
   const classes = secaoUseStyles()
@@ -29,19 +29,19 @@ const Secao: FC<Props> = props => {
             key={index}
             item
             container
-            onClick={() => handleClickLivro(livro.id)}
+            onClick={() => handleClickLivro(livro)}
             className={classes.livroContainer}
           >
             <Grid container className={classes.imagemContainer}>
               <img
-                src={livro.imagem}
+                src={livro.capa}
                 alt="Imagem do livro"
                 className={classes.imagem}
               />
             </Grid>
 
             <Typography className={classes.tituloLivro}>
-              {livro.nome}
+              {livro.titulo}
             </Typography>
           </Grid>
         ))}

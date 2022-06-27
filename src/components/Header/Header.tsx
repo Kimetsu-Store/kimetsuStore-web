@@ -1,29 +1,41 @@
 import { Badge, Grid, Typography } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu'
 import { ShoppingCart } from '@material-ui/icons'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { GeneralContainer } from '../GeneralContainer'
 import { MenuOpcoes } from '../MenuOpcoes'
 import { SearchBar } from '../SearchBar'
 import { headerUseStyles } from './Header.styles'
 import { HeaderMobileBox } from '../HeaderMobileBox'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../store'
+import { obterCategorias } from '../../ducks/filtros'
+import { ItemMenu } from '../MenuOpcoes/MenuOpcoes'
 
-const itensMenuCategoriaMock = [{ titulo: 'Mobile' }, { titulo: 'Front' }]
-const itensMenuAutoresMock = [
-  { titulo: 'Autor blabbla bal abla' },
-  { titulo: 'Autor blabbla bal abla2' }
-]
 const Header: FC = () => {
+  const dispatch = useDispatch()
   const [aberto, setAberto] = useState(false)
+
+  const { categorias } = useSelector((state: RootState) => state.filtros)
+
   const handleClickCategoria = categoria => {
     setAberto(false)
     console.log(categoria)
   }
 
-  const handleClickAutor = autor => {
-    setAberto(false)
-    console.log(autor)
+  const obterCategoriasMapeadas = () => {
+    return categorias.map(categoria => {
+      const item: ItemMenu = {
+        id: categoria.id,
+        nome: categoria.nome
+      }
+      return item
+    })
   }
+
+  useEffect(() => {
+    dispatch(obterCategorias())
+  }, [])
 
   const classes = headerUseStyles()
   return (
@@ -40,15 +52,11 @@ const Header: FC = () => {
           <Grid container item className={classes.opcoes}>
             <MenuOpcoes
               titulo="Categorias"
-              itensMenu={itensMenuCategoriaMock}
+              itensMenu={obterCategoriasMapeadas()}
               handleClickItem={handleClickCategoria}
             />
 
             <SearchBar />
-
-            <Badge badgeContent={4} color="primary">
-              <ShoppingCart className={classes.shoppingCart} />
-            </Badge>
           </Grid>
         </Grid>
 
@@ -67,18 +75,12 @@ const Header: FC = () => {
           </Grid>
 
           <SearchBar />
-
-          <Badge badgeContent={4} color="primary">
-            <ShoppingCart className={classes.shoppingCart} />
-          </Badge>
         </Grid>
 
         <HeaderMobileBox
           boxAberto={aberto}
-          categorias={itensMenuCategoriaMock}
-          autores={itensMenuAutoresMock}
+          categorias={obterCategoriasMapeadas()}
           handleClickCategoria={handleClickCategoria}
-          handleClickAutor={handleClickAutor}
         />
       </GeneralContainer>
     </Grid>

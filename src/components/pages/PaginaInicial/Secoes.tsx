@@ -1,38 +1,31 @@
 import { Grid } from '@material-ui/core'
-import { FC } from 'react'
-import LivroSimplificado from '../../../models/Livro/livroSimplificado'
+import { FC, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { obterLivrosCategoriasInicias } from '../../../ducks/livros'
+import { RootState } from '../../../store'
 import { GeneralContainer } from '../../GeneralContainer'
 import Secao from './Secao'
 import { secoesUseStyles } from './Secoes.styles'
 
-const livrosSecaoMock: LivroSimplificado[] = [
-  {
-    id: 1,
-    nome: 'Livro teste1',
-    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
-  },
-  {
-    id: 2,
-    nome: 'Livro teste2',
-    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
-  },
-  {
-    id: 3,
-    nome: 'Livro teste3',
-    imagem: 'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg'
-  }
-]
-
 const Secoes: FC = () => {
+  const dispatch = useDispatch()
+  const { livrosMobile, livrosBackEnd, livrosFrontEnd } = useSelector(
+    (state: RootState) => state.livros
+  )
+
+  useEffect(() => {
+    dispatch(obterLivrosCategoriasInicias())
+  }, [])
+
   const classes = secoesUseStyles()
   return (
     <GeneralContainer>
       <Grid container className={classes.secoesContainer}>
-        <Secao titulo="Mobile" livros={livrosSecaoMock} />
+        <Secao titulo="Mobile" livros={livrosMobile} />
 
-        <Secao titulo="FrontEnd" livros={livrosSecaoMock} />
+        <Secao titulo="FrontEnd" livros={livrosFrontEnd} />
 
-        <Secao titulo="BackEnd" livros={livrosSecaoMock} />
+        <Secao titulo="BackEnd" livros={livrosBackEnd} />
       </Grid>
     </GeneralContainer>
   )

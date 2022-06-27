@@ -3,14 +3,15 @@ import ArrowDownward from '@material-ui/icons/ArrowDownward'
 import { FC, useState } from 'react'
 import { menuOpcoesUseStyles } from './MenuOpcoes.styles'
 
-class ItemMenu {
-  titulo: string
+export class ItemMenu {
+  id: number
+  nome: string
 }
 
 interface Props {
   titulo: string
   itensMenu: ItemMenu[]
-  handleClickItem: (itemTitulo) => void
+  handleClickItem: (itemId: number) => void
 }
 
 const MenuOpcoes: FC<Props> = props => {
@@ -23,9 +24,9 @@ const MenuOpcoes: FC<Props> = props => {
     setAnchorEl(null)
   }
 
-  const handleClickMenuItem = itemTitulo => {
+  const handleClickMenuItem = (itemId: number) => {
     handleClose()
-    handleClickItem(itemTitulo)
+    handleClickItem(itemId)
   }
 
   const classes = menuOpcoesUseStyles()
@@ -58,9 +59,9 @@ const MenuOpcoes: FC<Props> = props => {
           <MenuItem
             className={classes.menuItem}
             key={index}
-            onClick={() => handleClickMenuItem('teste')}
+            onClick={() => handleClickMenuItem(item.id)}
           >
-            {item.titulo}
+            {item.nome}
           </MenuItem>
         ))}
       </Menu>

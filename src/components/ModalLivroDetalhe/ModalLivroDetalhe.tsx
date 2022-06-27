@@ -22,7 +22,7 @@ const ModalLivroDetalhe: React.FC = () => {
     <Modal open={modalDetalhesAberta} onClose={handleFechar}>
       <Grid item container className={classes.container}>
         <Grid container className={classes.header}>
-          <Typography className={classes.titulo}>{livro?.nome}</Typography>
+          <Typography className={classes.titulo}>{livro?.titulo}</Typography>
           <Close
             className={classes.iconeFechar}
             onClick={() => handleFechar()}
@@ -33,7 +33,7 @@ const ModalLivroDetalhe: React.FC = () => {
           <Grid container className={classes.imagemEPrecoContainer}>
             <Grid container className={classes.imagemContainer}>
               <img
-                src={livro?.imagem}
+                src={livro?.capa}
                 alt="Imagem do livro"
                 className={classes.imagem}
               />
@@ -51,7 +51,7 @@ const ModalLivroDetalhe: React.FC = () => {
           <Grid container className={classes.informacoes}>
             <Grid container className={classes.informacao}>
               <Typography className={classes.labelInfo}>Autores:</Typography>
-              <Typography>{livro?.nomeAutor}</Typography>
+              <Typography>{livro?.autor.nome}</Typography>
             </Grid>
 
             <Grid container className={classes.informacao}>
@@ -59,7 +59,7 @@ const ModalLivroDetalhe: React.FC = () => {
                 Data de publicação:
               </Typography>
               <Typography>
-                {obterDiaMesAnoCompleto(livro?.dataPublicacao.toString())}
+                {obterDiaMesAnoCompleto(livro?.dataDePublicacao.toString())}
               </Typography>
             </Grid>
 
@@ -67,7 +67,12 @@ const ModalLivroDetalhe: React.FC = () => {
               <Typography className={classes.labelInfo}>
                 Número de páginas:
               </Typography>
-              <Typography>{livro?.numeroPaginas}</Typography>
+              <Typography>{livro?.paginas}</Typography>
+            </Grid>
+
+            <Grid container className={classes.informacao}>
+              <Typography className={classes.labelInfo}>ISBN:</Typography>
+              <Typography>{livro?.isbn}</Typography>
             </Grid>
 
             <Grid container className={classes.informacao}>
