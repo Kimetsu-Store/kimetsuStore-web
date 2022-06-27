@@ -5,8 +5,12 @@ import theme from '../../shared/styles/temaconfig'
 export const generalContainerUseStyles = makeStyles(() => ({
   generalContainer: {
     width: '80%',
-    height: '100%',
     margin: 'auto',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+
     [theme.breakpoints.down(Breakpoints.xl)]: {
       width: '90%'
     }

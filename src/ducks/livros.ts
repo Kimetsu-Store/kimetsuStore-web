@@ -1,15 +1,26 @@
 import { HYDRATE } from 'next-redux-wrapper'
+import { useKimetsuStoreApi } from '../api/kimetsu_store/kimetsu_store-api'
+import { ObterLivrosPorCategoriaRequest } from '../dtos/ObterLivrosPorCategoria'
 import LivroDetalhado from '../models/Livro/livroDetalhado'
 
 const LivrosTypes = {
   ABRIR_MODAL_DETALHES: 'livros/ABRIR_MODAL_DETALHES',
-  FECHAR_MODAL_DETALHES: 'livros/FECHAR_MODAL_DETALHES'
+  FECHAR_MODAL_DETALHES: 'livros/FECHAR_MODAL_DETALHES',
+  OBTER_LIVROS_CATEGORIAS_INICIAIS: 'livros/OBTER_LIVROS_CATEGORIAS_INICIAIS',
+  OBTER_LIVROS_CATEGORIAS_INICIAIS_SUCESSO:
+    'livros/OBTER_LIVROS_CATEGORIAS_INICIAIS_SUCESSO',
+  OBTER_LIVROS_CATEGORIAS_INICIAIS_ERRO:
+    'livros/OBTER_LIVROS_CATEGORIAS_INICIAIS_ERRO'
 }
 export interface LivrosState {
   livro?: LivroDetalhado
+  livrosMobile?: LivroDetalhado[]
+  livrosFrontEnd?: LivroDetalhado[]
+  livrosBackEnd?: LivroDetalhado[]
   idLivroSelecionado?: number
   modalDetalhesAberta?: boolean
   loadingDetalhesLivro?: boolean
+  loadingCategoriasIniciais?: boolean
   mensagemErro?: string
 }
 
@@ -20,9 +31,13 @@ export interface LivrosAction {
 
 const initialState: LivrosState = {
   livro: null,
+  livrosMobile: [],
+  livrosFrontEnd: [],
+  livrosBackEnd: [],
   idLivroSelecionado: 0,
   modalDetalhesAberta: false,
   loadingDetalhesLivro: true,
+  loadingCategoriasIniciais: true,
   mensagemErro: 'teste'
 }
 
@@ -47,7 +62,29 @@ export default function reducer(
       return {
         ...state,
         idLivroSelecionado: action.payload.idLivroSelecionado,
-        modalDetalhesAberta: action.payload.modalDetalhesAberta
+        modalDetalhesAberta: action.payload.modalDetalhesAberta,
+        livro: { ...action.payload.livro }
+      }
+
+    case LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS:
+      return {
+        ...state,
+        loadingCategoriasIniciais: true
+      }
+
+    case LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS_SUCESSO:
+      return {
+        ...state,
+        livrosMobile: action.payload.livrosMobile,
+        livrosBackEnd: action.payload.livrosBackEnd,
+        livrosFrontEnd: action.payload.livrosFrontEnd
+      }
+
+    case LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS:
+      return {
+        ...state,
+        mensagemErro: action.payload.mensagemErro,
+        loadingCategoriasIniciais: false
       }
 
     default:
@@ -55,31 +92,60 @@ export default function reducer(
   }
 }
 
-export function abrirModal(idLivroSelecionado: number) {
+export function abrirModal(livroSelecionado: LivroDetalhado) {
   return async (dispatch: (action: LivrosAction) => void): Promise<void> => {
-    const livro = {
-      categoria: 'Mobile',
-      dataPublicacao: new Date(),
-      id: 1,
-      imagem:
-        'https://images-na.ssl-images-amazon.com/images/I/71MIG6Z3F2L.jpg',
-      isbn: '1234123123123',
-      nome: 'Livro bacana exemplo',
-      nomeAutor: 'Autor nome da Silva',
-      numeroPaginas: 382,
-      preco: 50,
-      sumario:
-        'A enumeração dos capítulos, seções ou partes da obra, na ordem em que aparecem no texto. Se a obra for apresentada em mais de um VOLUME, em cada um deles deve constar o SUMÁRIO completo da obra. Deve ser apresentado em página distinta, após a Folha de rosto, a Dedicatória, os Agradecimentos, a Epígrafe e o Prefácio.A enumeração dos capítulos, seções ou partes da obra, na ordem em que aparecem no texto. Se a obra for apresentada em mais de um VOLUME, em cada um deles deve constar o SUMÁRIA enumeração dos capítulos, seções ou partes da obra, na ordem em que aparecem no texto. Se a obra for apresentada em mais de um VOLUME, em cada um deles deve constar o SUMÁRIO completo da obra. Deve ser apresentado em página distinta, após a Folha de rosto, a Dedicatória, os Agradecimentos, a Epígrafe e o Prefácio.A enumeração dos capítulos, seções ou partes da obra, na ordem em que aparecem no texto. Se a obra for apresentada em mais de um VOLUME, em cada um deles deve constar o SUMÁRI'
-    }
-    console.log(livro)
     dispatch({
       type: LivrosTypes.ABRIR_MODAL_DETALHES,
       payload: {
         modalDetalhesAberta: true,
-        idLivroSelecionado: idLivroSelecionado,
-        livro: { ...livro }
+        livro: livroSelecionado
       }
     })
+  }
+}
+
+export function obterLivrosCategoriasInicias() {
+  return async (dispatch: (action: LivrosAction) => void): Promise<void> => {
+    dispatch({ type: LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS })
+
+    const api = useKimetsuStoreApi()
+
+    const obterRequestPorCategoria = (categoria: string) => {
+      const request: ObterLivrosPorCategoriaRequest = {
+        categoria: categoria,
+        page: null,
+        size: 3,
+        sort: []
+      }
+      return request
+    }
+
+    try {
+      console.log('fez')
+      const livrosCategoriasMobile = await api.obterLivrosPorCategoria(
+        obterRequestPorCategoria('Mobile')
+      )
+      const livrosCategoriasFrontEnd = await api.obterLivrosPorCategoria(
+        obterRequestPorCategoria('FrontEnd')
+      )
+      const livrosCategoriasBackEnd = await api.obterLivrosPorCategoria(
+        obterRequestPorCategoria('BackEnd')
+      )
+
+      dispatch({
+        type: LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS_SUCESSO,
+        payload: {
+          livrosMobile: livrosCategoriasMobile.livrosLista,
+          livrosFrontEnd: livrosCategoriasFrontEnd.livrosLista,
+          livrosBackEnd: livrosCategoriasBackEnd.livrosLista
+        }
+      })
+    } catch (error) {
+      dispatch({
+        type: LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS_ERRO,
+        payload: { mensagemErro: error.response?.data?.mensagem }
+      })
+    }
   }
 }
 
@@ -87,7 +153,11 @@ export function fecharModal() {
   return async (dispatch: (action: LivrosAction) => void): Promise<void> => {
     dispatch({
       type: LivrosTypes.FECHAR_MODAL_DETALHES,
-      payload: { modalDetalhesAberta: false, idLivroSelecionado: 0 }
+      payload: {
+        modalDetalhesAberta: false,
+        idLivroSelecionado: 0,
+        livro: null
+      }
     })
   }
 }

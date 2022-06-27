@@ -1,4 +1,5 @@
 import { HYDRATE } from 'next-redux-wrapper'
+import { useKimetsuStoreApi } from '../api/kimetsu_store/kimetsu_store-api'
 import { Categoria } from '../models/Categoria'
 
 const FiltrosTypes = {
@@ -69,17 +70,16 @@ export function obterCategorias() {
   return async (dispatch: (action: FiltrosAction) => void): Promise<void> => {
     dispatch({ type: FiltrosTypes.OBTER_CATEGORIAS })
 
-    //aqui obtemos a service da pasta service quando for criada
-    const filtrosService = { nome: 'exemplo!!!', obterCategorias: 'exemplo' }
+    const api = useKimetsuStoreApi()
 
     try {
-      const resultado = await filtrosService.obterCategorias
+      const resultado = await api.obterCategorias()
 
-      const resultadoCategoriasMock: Categoria[] = [{ id: 1, nome: 'mobile' }]
+      console.log(resultado)
 
       dispatch({
         type: FiltrosTypes.OBTER_CATEGORIAS_SUCESSO,
-        payload: { categorias: resultadoCategoriasMock }
+        payload: { categorias: resultado }
       })
     } catch (error) {
       dispatch({

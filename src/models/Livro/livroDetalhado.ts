@@ -1,14 +1,19 @@
+import { Autor } from '../Autor'
+import { Categoria } from '../Categoria'
+
 class LivroDetalhado {
   id: number
-  nome: string
-  imagem: string
-  nomeAutor: string
+  titulo: string
+  autor: Autor
+  categoria: Categoria
+  descricao: string
   sumario: string
   preco: number
-  numeroPaginas: number
+  paginas: number
   isbn: string
-  dataPublicacao: Date
-  categoria: string
+  dataDePublicacao: Date
+  capa: string
+  estoque: number
 }
 
 export default LivroDetalhado

@@ -64,19 +64,6 @@ export const headerUseStyles = makeStyles(() => ({
     flexWrap: 'nowrap',
     alignItems: 'center'
   },
-  shoppingCart: {
-    color: VERDEAGUA,
-    fontSize: 36,
-
-    '&:hover': {
-      color: BRANCO,
-      cursor: 'pointer'
-    },
-
-    [theme.breakpoints.down(Breakpoints.g)]: {
-      fontSize: 30
-    }
-  },
   containerContentMobile: {
     display: 'none',
     height: 65,
