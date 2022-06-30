@@ -9,9 +9,12 @@ import { secoesUseStyles } from './Secoes.styles'
 
 const Secoes: FC = () => {
   const dispatch = useDispatch()
-  const { livrosMobile, livrosBackEnd, livrosFrontEnd } = useSelector(
-    (state: RootState) => state.livros
-  )
+  const {
+    livrosMobile,
+    livrosBackEnd,
+    livrosFrontEnd,
+    loadingCategoriasIniciais
+  } = useSelector((state: RootState) => state.livros)
 
   useEffect(() => {
     dispatch(obterLivrosCategoriasInicias())
@@ -21,11 +24,23 @@ const Secoes: FC = () => {
   return (
     <GeneralContainer>
       <Grid container className={classes.secoesContainer}>
-        <Secao titulo="Mobile" livros={livrosMobile} />
+        <Secao
+          titulo="Mobile"
+          livros={livrosMobile}
+          loading={loadingCategoriasIniciais}
+        />
 
-        <Secao titulo="FrontEnd" livros={livrosFrontEnd} />
+        <Secao
+          titulo="FrontEnd"
+          livros={livrosFrontEnd}
+          loading={loadingCategoriasIniciais}
+        />
 
-        <Secao titulo="BackEnd" livros={livrosBackEnd} />
+        <Secao
+          titulo="BackEnd"
+          livros={livrosBackEnd}
+          loading={loadingCategoriasIniciais}
+        />
       </Grid>
     </GeneralContainer>
   )

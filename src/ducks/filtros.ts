@@ -75,8 +75,6 @@ export function obterCategorias() {
     try {
       const resultado = await api.obterCategorias()
 
-      console.log(resultado)
-
       dispatch({
         type: FiltrosTypes.OBTER_CATEGORIAS_SUCESSO,
         payload: { categorias: resultado }

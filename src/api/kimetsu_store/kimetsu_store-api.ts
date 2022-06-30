@@ -2,6 +2,10 @@ import {
   ObterLivrosPorCategoriaRequest,
   ObterLivrosPorCategoriaResponse
 } from '../../dtos/ObterLivrosPorCategoria'
+import {
+  ObterLivrosPorPalavraRequest,
+  ObterLivrosPorPalavraResponse
+} from '../../dtos/ObterLivrosPorPalavra'
 import { Autor } from '../../models/Autor'
 import { Categoria } from '../../models/Categoria'
 import { useHttp } from '../_base/use-http'
@@ -28,5 +32,19 @@ export function useKimetsuStoreApi() {
     return response
   }
 
-  return { obterCategorias, obterAutores, obterLivrosPorCategoria }
+  async function obterLivrosPorPalavra(
+    request: ObterLivrosPorPalavraRequest
+  ): Promise<ObterLivrosPorPalavraResponse> {
+    const response = await http.get(
+      `/livros/?palavra=${request.palavra}&page=${request.page}&size=${request.size}`
+    )
+    return response
+  }
+
+  return {
+    obterCategorias,
+    obterAutores,
+    obterLivrosPorCategoria,
+    obterLivrosPorPalavra
+  }
 }
