@@ -1,12 +1,23 @@
 import { makeStyles } from '@material-ui/core'
 import Breakpoints from '../../shared/styles/breakpoints'
-import { BRANCO, CINZA1, VERDEAGUA } from '../../shared/styles/colors'
+import { CINZA1, VERDEAGUA } from '../../shared/styles/colors'
 import theme from '../../shared/styles/temaconfig'
 
 export const headerUseStyles = makeStyles(() => ({
+  containerMargin: {
+    marginBottom: 100,
+    [theme.breakpoints.down(Breakpoints.lg)]: {
+      marginBottom: 80
+    },
+    [theme.breakpoints.down(Breakpoints.md)]: {
+      marginBottom: 65
+    }
+  },
   container: {
+    position: 'fixed',
     width: '100%',
     height: 100,
+    zIndex: 10,
     backgroundColor: CINZA1,
 
     [theme.breakpoints.down(Breakpoints.lg)]: {

@@ -19,7 +19,7 @@ export const headerMobileBoxUseStyles = makeStyles<Theme, Props>(theme => ({
     top: 65,
     left: 0,
     zIndex: 1,
-    height: '100%',
+    height: '100vh',
     width: '80%',
     backgroundColor: VERDEAGUA,
     flexDirection: 'column',
