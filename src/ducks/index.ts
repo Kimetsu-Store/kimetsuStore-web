@@ -1,5 +1,7 @@
 //States
-export { default as FiltrosState } from './filtros'
+export type { FiltrosState } from './filtros'
+export type { LivrosState } from './livros'
 
 //Reducers
-export { default as filtrosReducers } from './filtros'
+export { default as filtrosReducer } from './filtros'
+export { default as livrosReducer } from './livros'

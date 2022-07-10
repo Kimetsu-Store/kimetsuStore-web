@@ -5,39 +5,53 @@
 
 ## Getting Started
 
-###node.js
-####Download the LTS version of node.js:
-####https://nodejs.org/en/download/
+### 1. node.js
 
-###yarn
-####Run the command "npm install --global yarn"
+#### Download the LTS version of node.js:
 
-###VSCode
-####Download VSCode if you do not have it yet:
-####https://code.visualstudio.com/download
+#### https://nodejs.org/en/download/
 
-###Prettier
-####Install Prettier Extension in VSCODE
-####After it, go to File -> Preferences -> Settings
-####Click on Text Editor -> Formatting -> Check the box "Format on save"
-####Still on the Settings, click "Font" and, at the end, click at "Edit in settions.json"
-####Add the line to the existing JSON -> "editor.defaultFormatter": "esbenp.prettier-vscode"
+### 2. yarn
 
-###Install the dependencies
-####Run the command on the terminal of your VSCode: "yarn install"
+#### Run the command "npm install --global yarn"
 
-###Run your application
+### 3. VSCode
 
-####yarn dev
-#####Starts the development server.
+#### Download VSCode if you do not have it yet:
 
-####yarn build
-#####Builds the app for production.
+#### https://code.visualstudio.com/download
 
-####yarn start
-#####Runs the built app in production mode.
+### 4. Prettier
 
-###Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+#### Install Prettier Extension in VSCODE
+
+#### After it, go to File -> Preferences -> Settings
+
+#### Click on Text Editor -> Formatting -> Check the box "Format on save"
+
+#### Still on the Settings, click "Font" and, at the end, click at "Edit in settions.json"
+
+#### Add the line to the existing JSON -> "editor.defaultFormatter": "esbenp.prettier-vscode"
+
+### 5. Install the dependencies
+
+#### 6. Run the command on the terminal of your VSCode: "yarn install"
+
+### 7. Run your application
+
+#### - yarn dev
+
+##### Starts the development server.
+
+#### - yarn build
+
+##### Builds the app for production.
+
+#### - yarn start
+
+##### Runs the built app in production mode.
+
+### Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Learn More
 

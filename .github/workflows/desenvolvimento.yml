@@ -5,9 +5,9 @@ name: Desenvolvimento CI
 
 on:
   push:
-    branches: [ "desenvolvimento" ]
+    branches: ['desenvolvimento']
   pull_request:
-    branches: [ "desenvolvimento" ]
+    branches: ['desenvolvimento']
 
 jobs:
   build:
@@ -16,15 +16,15 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 17x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
-    - uses: actions/checkout@v3
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn add @types/node 
-    - run: yarn install
-    - run: yarn run build
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn add @types/node
+      - run: yarn install
+      - run: yarn run build
