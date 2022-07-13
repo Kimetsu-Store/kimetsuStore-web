@@ -1,9 +1,9 @@
 import { makeStyles } from '@material-ui/core'
-import Breakpoints from '../../../shared/styles/breakpoints'
-import { VERDEAGUA } from '../../../shared/styles/colors'
-import theme from '../../../shared/styles/temaconfig'
+import Breakpoints from '../../shared/styles/breakpoints'
+import { VERDEAGUA } from '../../shared/styles/colors'
+import theme from '../../shared/styles/temaconfig'
 
-export const pesquisaLivrosHeaderUseStyles = makeStyles(() => ({
+export const tituloComBordaUseStyles = makeStyles(() => ({
   titulo: {
     width: '100%',
     fontSize: 36,
