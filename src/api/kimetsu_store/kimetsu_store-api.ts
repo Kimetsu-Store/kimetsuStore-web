@@ -1,3 +1,4 @@
+import { CadastraNovaCompraResponse } from '../../dtos/CadastraNovaCompra'
 import {
   ObterLivrosPorCategoriaRequest,
   ObterLivrosPorCategoriaResponse
@@ -8,6 +9,7 @@ import {
 } from '../../dtos/ObterLivrosPorPalavra'
 import { Autor } from '../../models/Autor'
 import { Categoria } from '../../models/Categoria'
+import Compra from '../../models/Compra/compra'
 import { useHttp } from '../_base/use-http'
 
 export function useKimetsuStoreApi() {
@@ -41,10 +43,19 @@ export function useKimetsuStoreApi() {
     return response
   }
 
+  async function cadastraNovaCompra(
+    request: Compra
+  ): Promise<CadastraNovaCompraResponse> {
+    const response = await http.post('/compra', request)
+
+    return response
+  }
+
   return {
     obterCategorias,
     obterAutores,
     obterLivrosPorCategoria,
-    obterLivrosPorPalavra
+    obterLivrosPorPalavra,
+    cadastraNovaCompra
   }
 }
