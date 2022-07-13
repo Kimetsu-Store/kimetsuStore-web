@@ -1,5 +1,6 @@
 import { Button, Grid, Modal, Typography } from '@material-ui/core'
 import { Close } from '@material-ui/icons'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fecharModal } from '../../ducks/livros'
@@ -9,6 +10,7 @@ import { modalLivroDetalheUseStyles } from './ModalLivroDetalhe.styles'
 
 const ModalLivroDetalhe: React.FC = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const { modalDetalhesAberta, livro } = useSelector(
     (state: RootState) => state.livros
   )
@@ -16,6 +18,12 @@ const ModalLivroDetalhe: React.FC = () => {
   const handleFechar = () => {
     dispatch(fecharModal())
   }
+
+  const handleComprar = () => {
+    handleFechar()
+    router.push('/compra')
+  }
+
   const classes = modalLivroDetalheUseStyles()
 
   return (
@@ -44,7 +52,9 @@ const ModalLivroDetalhe: React.FC = () => {
                 {formatarParaReais(livro?.preco)}
               </Typography>
 
-              <Button className={classes.botaoComprar}>Comprar</Button>
+              <Button className={classes.botaoComprar} onClick={handleComprar}>
+                Comprar
+              </Button>
             </Grid>
           </Grid>
 

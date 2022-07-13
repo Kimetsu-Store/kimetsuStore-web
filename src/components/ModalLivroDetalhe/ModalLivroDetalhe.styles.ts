@@ -110,6 +110,7 @@ const modalLivroDetalheUseStyles = makeStyles((theme: Theme) => ({
     borderRadius: 5,
     width: 150,
     height: 40,
+    color: BRANCO,
 
     '&:hover': {
       backgroundColor: VERDEAGUAESCURO

@@ -1,7 +1,9 @@
 import { HYDRATE } from 'next-redux-wrapper'
 import { useKimetsuStoreApi } from '../api/kimetsu_store/kimetsu_store-api'
+import { CadastraNovaCompraResponse } from '../dtos/CadastraNovaCompra'
 import { ObterLivrosPorCategoriaRequest } from '../dtos/ObterLivrosPorCategoria'
 import { ObterLivrosPorPalavraRequest } from '../dtos/ObterLivrosPorPalavra'
+import Compra from '../models/Compra/compra'
 import LivroDetalhado from '../models/Livro/livroDetalhado'
 
 const LivrosTypes = {
@@ -14,7 +16,10 @@ const LivrosTypes = {
     'livros/OBTER_LIVROS_CATEGORIAS_INICIAIS_ERRO',
   OBTER_LISTAGEM_LIVROS: 'livros/OBTER_LISTAGEM_LIVROS',
   OBTER_LISTAGEM_LIVROS_SUCESSO: 'livros/OBTER_LISTAGEM_LIVROS_SUCESSO',
-  OBTER_LISTAGEM_LIVROS_ERRO: 'livros/OBTER_LISTAGEM_LIVROS_ERRO'
+  OBTER_LISTAGEM_LIVROS_ERRO: 'livros/OBTER_LISTAGEM_LIVROS_ERRO',
+  COMPRA_LIVRO: 'livros/COMPRA_LIVRO',
+  COMPRA_LIVRO_SUCESSO: 'livros/COMPRA_LIVRO_SUCESSO',
+  COMPRA_LIVRO_ERRO: 'livros/COMPRA_LIVRO_ERRO'
 }
 export interface LivrosState {
   livro?: LivroDetalhado
@@ -65,8 +70,7 @@ export default function reducer(
     case LivrosTypes.FECHAR_MODAL_DETALHES:
       return {
         ...state,
-        modalDetalhesAberta: action.payload.modalDetalhesAberta,
-        livro: { ...action.payload.livro }
+        modalDetalhesAberta: action.payload.modalDetalhesAberta
       }
 
     case LivrosTypes.OBTER_LIVROS_CATEGORIAS_INICIAIS:
@@ -133,8 +137,7 @@ export function fecharModal() {
     dispatch({
       type: LivrosTypes.FECHAR_MODAL_DETALHES,
       payload: {
-        modalDetalhesAberta: false,
-        livro: null
+        modalDetalhesAberta: false
       }
     })
   }
@@ -252,6 +255,38 @@ export function obterLivrosPorPalavra(
         type: LivrosTypes.OBTER_LISTAGEM_LIVROS_ERRO,
         payload: { mensagemErro: error.response?.data?.mensagem }
       })
+    }
+  }
+}
+
+export function compraLivro(
+  compra: Compra,
+  onSucesso: (numero: string) => void,
+  onErro: () => void
+) {
+  return async (dispatch: (action: LivrosAction) => void): Promise<void> => {
+    dispatch({ type: LivrosTypes.COMPRA_LIVRO })
+
+    const api = useKimetsuStoreApi()
+
+    try {
+      const cepFormatado = compra.cep.slice(0, 5) + '-' + compra.cep.slice(5)
+      const compraRequest: Compra = {
+        ...compra,
+        cep: cepFormatado
+      }
+      const resposta = await api.cadastraNovaCompra(compraRequest)
+
+      dispatch({
+        type: LivrosTypes.COMPRA_LIVRO_SUCESSO
+      })
+
+      onSucesso(resposta.numDoPedido)
+    } catch (error) {
+      dispatch({
+        type: LivrosTypes.COMPRA_LIVRO_ERRO
+      })
+      onErro()
     }
   }
 }
