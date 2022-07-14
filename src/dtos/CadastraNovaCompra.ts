@@ -1,4 +1,4 @@
 export class CadastraNovaCompraResponse {
   numDoPedido: string
-  dataPedido: Date
+  valorDoPedido: number
 }

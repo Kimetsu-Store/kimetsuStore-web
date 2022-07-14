@@ -6,11 +6,11 @@ import React, { ChangeEvent, FC, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Footer, GeneralContainer, Header, TituloComBorda } from '../..'
 import { useBuscarCepApi } from '../../../api/buscar_cep/buscar_cep-api'
-import { CadastraNovaCompraResponse } from '../../../dtos/CadastraNovaCompra'
 import { compraLivro } from '../../../ducks/livros'
 import Compra from '../../../models/Compra/compra'
 import DadosCep from '../../../models/DadosCep/dadosCep'
 import { RootState } from '../../../store'
+import { formatarParaReais } from '../../../utils'
 import { compraUseStyles } from './Compra.styles'
 import FormularioCompra from './FormularioCompra'
 import ResumoLivro from './ResumoLivro'
@@ -35,7 +35,7 @@ interface Snackbar {
   tipo: Color
 }
 
-const PaginaInicial: FC = () => {
+const CompraPagina: FC = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const apiCep = useBuscarCepApi()
@@ -74,8 +74,7 @@ const PaginaInicial: FC = () => {
     switch (propriedade) {
       case 'quandidadeDeLivros':
         const quantidade = parseInt(valor)
-        if (quantidade >= 0)
-          setCompra({ ...compra, quandidadeDeLivros: quantidade })
+        setCompra({ ...compra, quandidadeDeLivros: quantidade })
         break
       case 'nomeCliente':
         setCompra({ ...compra, nomeCliente: valor })
@@ -86,19 +85,13 @@ const PaginaInicial: FC = () => {
       case 'cep':
         if ((isNaN(parseInt(valor)) && valor !== '') || valor.length > 8) break
 
-        if (valor.length === 8) {
-          await obterDadosPorCep(valor)
-        } else {
-          setCompra({ ...compra, cep: valor })
-          setCepDados(null)
-        }
+        setCompra({ ...compra, cep: valor })
         break
       case 'cpf':
         if ((isNaN(parseInt(valor)) && valor !== '') || valor.length > 11) break
 
         setCompra({ ...compra, cpf: valor })
         break
-
       case 'rua':
         setCompra({ ...compra, rua: valor })
         break
@@ -139,6 +132,22 @@ const PaginaInicial: FC = () => {
     setCepDados({ ...dados })
   }
 
+  async function handlePesquisarCep() {
+    if (compra.cep.length === 8) {
+      await obterDadosPorCep(compra.cep)
+    } else {
+      setCompra({
+        ...compra,
+        bairro: '',
+        cidade: '',
+        estado: '',
+        rua: ''
+      })
+
+      setCepDados(null)
+    }
+  }
+
   const validaDados = () => {
     if (compra.quandidadeDeLivros <= 0) return ValidacaoDados.ERRO_QUANTIDADE
     if (compra.bairro.length === 0) return ValidacaoDados.ERRO_BAIRRO
@@ -155,14 +164,19 @@ const PaginaInicial: FC = () => {
     return ValidacaoDados.TUDO_VALIDO
   }
 
-  const handleConfirmarConta = () => {
+  const handleConfirmarCompra = () => {
     const validacao = validaDados()
 
     if (validacao === ValidacaoDados.TUDO_VALIDO) {
-      const sucesso = (numero: string) => {
+      const sucesso = (numero: string, valor: number) => {
         setSnackbar({
           mensagem: `Compra número ${numero} realizada com sucesso!`,
           tipo: 'success'
+        })
+
+        router.push({
+          pathname: `/compra-concluida`,
+          query: { numero: numero, valor: formatarParaReais(valor) }
         })
       }
 
@@ -213,7 +227,7 @@ const PaginaInicial: FC = () => {
                 <Grid item xs={12} container className={classes.botaoDesktop}>
                   <Button
                     className={classes.botaoComprar}
-                    onClick={handleConfirmarConta}
+                    onClick={handleConfirmarCompra}
                   >
                     Confirmar comprar
                   </Button>
@@ -225,12 +239,13 @@ const PaginaInicial: FC = () => {
                   onChange={handleFormularioChange}
                   compraDados={compra}
                   cepDados={cepDados}
+                  onBlurCep={handlePesquisarCep}
                 />
 
                 <Grid item xs={12} container className={classes.botaoMobile}>
                   <Button
                     className={classes.botaoComprar}
-                    onClick={handleConfirmarConta}
+                    onClick={handleConfirmarCompra}
                   >
                     Confirmar comprar
                   </Button>
@@ -256,4 +271,4 @@ const PaginaInicial: FC = () => {
   )
 }
 
-export default PaginaInicial
+export default CompraPagina

@@ -23,9 +23,9 @@ const PesquisaLivros: FC<Props> = props => {
       <Header />
 
       <TituloComBorda
-        titulo={`Resultados para pesquisa &quot;${
+        titulo={`Resultados para pesquisa \"${
           props.categoria || props.palavra || ''
-        }&quot;:`}
+        }\":`}
       />
 
       <ListagemLivros categoria={props.categoria} palavra={props.palavra} />

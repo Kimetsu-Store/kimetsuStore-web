@@ -11,6 +11,7 @@ interface Props {
   disabled?: boolean
   value: unknown
   placeholder?: string
+  onBlur?: () => void
 }
 
 const LabelComInput: FC<Props> = props => {
@@ -27,6 +28,7 @@ const LabelComInput: FC<Props> = props => {
         disabled={props.disabled}
         value={props.value}
         placeholder={props.placeholder}
+        onBlur={props.onBlur}
       />
     </Grid>
   )
