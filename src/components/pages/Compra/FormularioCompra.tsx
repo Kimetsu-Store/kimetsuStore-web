@@ -12,6 +12,7 @@ interface Props {
   ) => void
   compraDados: Compra
   cepDados: DadosCep
+  onBlurCep: () => void
 }
 
 const FormularioCompra: FC<Props> = props => {
@@ -63,6 +64,7 @@ const FormularioCompra: FC<Props> = props => {
           required
           value={props.compraDados.cep}
           placeholder="Ex.: 00000000"
+          onBlur={props.onBlurCep}
         />
       </Grid>
 

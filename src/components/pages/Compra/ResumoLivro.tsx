@@ -40,7 +40,7 @@ const ResumoLivro: FC<Props> = props => {
             type="number"
             className={classes.input}
             classes={{ underline: classes.inputUnderline }}
-            value={props.quantidade}
+            value={props.quantidade || 0}
             onChange={e => props.onChange(e, 'quandidadeDeLivros')}
           />
 
