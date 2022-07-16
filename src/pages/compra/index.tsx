@@ -1,4 +1,4 @@
-import { Compra } from '../../components/pages/Compra'
+import { Compra } from '../../components/pages'
 
 export default function Comprar() {
   return <Compra />

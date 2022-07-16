@@ -84,16 +84,15 @@ const Header: FC = () => {
           </Grid>
 
           <Grid container className={classes.containerContentMobile}>
-            <Grid
-              item
-              container
-              onClick={() => setAberto(!aberto)}
-              className={classes.tituloIconMobile}
-            >
-              <MenuIcon className={classes.IconMobile} />
+            <Grid item container className={classes.tituloIconMobile}>
+              <MenuIcon
+                className={classes.IconMobile}
+                onClick={() => setAberto(!aberto)}
+              />
 
               <Typography
                 className={`${classes.titulo} ${classes.tituloMobile}`}
+                onClick={handleIrParaHome}
               >
                 KS
               </Typography>

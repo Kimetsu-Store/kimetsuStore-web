@@ -1,10 +1,5 @@
 import { makeStyles } from '@material-ui/core'
 import Breakpoints from '../../../shared/styles/breakpoints'
-import {
-  BRANCO,
-  VERDEAGUA,
-  VERDEAGUAESCURO
-} from '../../../shared/styles/colors'
 import theme from '../../../shared/styles/temaconfig'
 
 export const formularioCompraUseStyles = makeStyles(() => ({

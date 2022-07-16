@@ -261,7 +261,7 @@ export function obterLivrosPorPalavra(
 
 export function compraLivro(
   compra: Compra,
-  onSucesso: (numero: string) => void,
+  onSucesso: (numero: string, valor: number) => void,
   onErro: () => void
 ) {
   return async (dispatch: (action: LivrosAction) => void): Promise<void> => {
@@ -281,7 +281,7 @@ export function compraLivro(
         type: LivrosTypes.COMPRA_LIVRO_SUCESSO
       })
 
-      onSucesso(resposta.numDoPedido)
+      onSucesso(resposta.numDoPedido, resposta.valorDoPedido)
     } catch (error) {
       dispatch({
         type: LivrosTypes.COMPRA_LIVRO_ERRO
