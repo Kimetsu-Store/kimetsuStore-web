@@ -14,6 +14,7 @@ export const footerUseStyles = makeStyles(() => ({
     justifyContent: 'center'
   },
   titulo: {
-    fontSize: 26
+    fontSize: 26,
+    cursor: 'pointer'
   }
 }))
