@@ -53,6 +53,7 @@ export const headerUseStyles = makeStyles(() => ({
     fontSize: '36px',
     color: VERDEAGUA,
     minWidth: 'max-content',
+    cursor: 'pointer',
 
     [theme.breakpoints.down(Breakpoints.g)]: {
       fontSize: '30px'

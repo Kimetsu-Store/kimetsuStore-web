@@ -27,6 +27,9 @@ const CompraConcluida: FC = props => {
             N.º do pedido: {numero}
           </Typography>
           <Typography className={classes.item}>Valor total: {valor}</Typography>
+          <Typography className={classes.item}>
+            Seu pedido será enviado via correio após confirmado o pagamento
+          </Typography>
         </Grid>
       </GeneralContainer>
 
