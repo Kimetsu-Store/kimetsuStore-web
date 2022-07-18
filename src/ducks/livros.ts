@@ -164,10 +164,10 @@ export function obterLivrosCategoriasInicias() {
         obterRequestPorCategoria('Mobile')
       )
       const livrosCategoriasFrontEnd = await api.obterLivrosPorCategoria(
-        obterRequestPorCategoria('Front-End')
+        obterRequestPorCategoria('Front-end')
       )
       const livrosCategoriasBackEnd = await api.obterLivrosPorCategoria(
-        obterRequestPorCategoria('Back-End')
+        obterRequestPorCategoria('Back-end')
       )
 
       dispatch({
